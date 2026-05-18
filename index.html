@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELTROX</title>
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html"><strong>VELTROX</strong></a>
+            </div>
+            <nav class="gnb">
+                <ul>
+                    <li><a href="business.html">사업분야</a></li>
+                    <li><a href="solution.html">솔루션</a></li>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="support.html">고객지원</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Mega Menu Dropdown -->
+        <div class="mega-menu">
+            <div class="mega-menu-container">
+                <!-- Left Image -->
+                <div class="mega-image">
+                    <!-- AI Vision / CCTV / 스마트시티 느낌의 이미지 -->
+                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=600&auto=format&fit=crop" alt="AI Vision Technology">
+                </div>
+                <!-- Right Lists -->
+                <div class="mega-lists">
+                    <ul class="sub-list">
+                        <li><a href="industrial.html">INDUSTRIAL ROBOT</a></li>
+                        <li><a href="disaster.html">DISASTER ROBOT</a></li>
+                        <li><a href="service.html">SERVICE ROBOT</a></li>
+                    </ul>
+                    <ul class="sub-list">
+                        <li><a href="vtx-irs.html">VTX-IRS</a></li>
+                        <li><a href="vtx-drs.html">VTX-DRS</a></li>
+                        <li><a href="vtx-srs.html">VTX-SRS</a></li>
+                    </ul>
+                    <ul class="sub-list">
+                        <li><a href="about.html#overview">회사개요</a></li>
+                        <li><a href="about.html#ceo">CEO 인사말</a></li>
+                        <li><a href="about.html#history">연혁</a></li>
+                        <li><a href="about.html#partners">파트너</a></li>
+                    </ul>
+                    <ul class="sub-list">
+                        <li><a href="board.html">자유게시판</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="as.html">A/S 신청</a></li>
+                    </ul>
+                    <ul class="sub-list">
+                        <li><a href="contact.html#careers">인재채용</a></li>
+                        <li><a href="contact.html#inquiry">사업문의</a></li>
+                        <li><a href="contact.html#location">찾아오시는 길</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 배경 비디오 히어로 섹션 -->
+    <div class="hero-section">
+        <!-- 배경 비디오: autoplay, loop, muted, playsinline 속성으로 자동 무한 반복 재생 -->
+        <video class="hero-video" autoplay loop muted playsinline>
+            <!-- 고객님이 올려주신 영상 적용 -->
+            <source src="main_video.mp4" type="video/mp4">
+        </video>
+        
+        <!-- 비디오 위에 어두운 막을 씌워 글씨가 잘 보이게 함 -->
+        <div class="hero-overlay"></div>
+        
+        <!-- 중앙 텍스트 콘텐츠 -->
+        <div class="hero-content">
+            <h1 id="dynamic-text">BEYOND THE LIMITS OF MACHINE</h1>
+        </div>
+    </div>
+
+    <!-- 동적 텍스트 애니메이션 스크립트 -->
+    <script src="script.js"></script>
+</body>
+</html>

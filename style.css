@@ -1,0 +1,692 @@
+/* 기본 리셋 및 폰트 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard Variable', sans-serif;
+    overflow-x: hidden; 
+    background-color: #0f172a; /* 벨트록스 기본 다크 모드 배경 */
+    color: #e2e8f0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Header --- */
+#header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    background-color: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header 호버 시 (메가메뉴 확장 시) 스타일 */
+#header:hover {
+    background-color: rgba(226, 232, 240, 0.98); /* 사진 속 연한 그레이톤 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo a {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+#header:hover .logo a {
+    color: #334155; /* 로고 색상 반전 */
+}
+
+.gnb ul {
+    display: flex;
+    gap: 30px;
+}
+
+/* 서브메뉴와의 완벽한 1:1 수직 정렬을 위해 너비 고정 */
+.gnb ul > li {
+    width: 120px;
+    text-align: center;
+}
+
+.gnb ul > li > a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    display: inline-block;
+    width: 100%;
+}
+
+#header:hover .gnb ul > li > a {
+    color: #1e293b; /* 텍스트 색상 반전 */
+    text-shadow: none;
+}
+
+.gnb ul > li > a:hover {
+    color: #dc2626 !important; /* 호버 시 벨트록스 로고의 붉은색 포인트 */
+}
+
+/* --- Mega Menu Dropdown --- */
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    background-color: rgba(226, 232, 240, 0.98); 
+    transition: height 0.4s ease;
+    border-top: 1px solid transparent;
+}
+
+/* 헤더에 마우스를 올리면 메가메뉴가 아래로 부드럽게 펼쳐짐 */
+#header:hover .mega-menu {
+    height: 320px; 
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.mega-menu-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transition-delay: 0.1s; /* 살짝 늦게 텍스트가 나타나도록 */
+}
+
+#header:hover .mega-menu-container {
+    opacity: 1;
+}
+
+/* Mega Menu 좌측 이미지 영역 */
+.mega-image {
+    width: 280px;
+    height: 160px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.mega-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mega Menu 우측 리스트 영역 */
+.mega-lists {
+    display: flex;
+    gap: 30px; /* gnb ul gap과 완벽하게 일치시킴 */
+}
+
+.sub-list {
+    width: 120px; /* gnb ul > li width와 완벽하게 일치시킴 */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sub-list a {
+    font-size: 0.95rem;
+    color: #475569;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.sub-list a:hover {
+    color: #1e293b;
+    font-weight: 700;
+}
+
+/* --- Hero Video Section --- */
+.hero-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 비디오를 화면 전체에 꽉 채우기 */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 화면을 가득 채움 (일부 잘릴 수 있음) */
+    /* 로봇이 오른쪽 위에 치우쳐 있으므로 오른쪽 위를 기준으로 보여줌 */
+    object-position: right top; 
+    z-index: -2;
+}
+
+/* 영상 위에 덮는 어두운 필터 (가독성 향상) */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(15, 23, 42, 0.7));
+    z-index: -1;
+}
+
+/* 중앙 텍스트 콘텐츠 */
+.hero-content {
+    text-align: center;
+    color: #ffffff;
+    z-index: 1;
+    padding: 0 20px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    letter-spacing: -1.5px;
+}
+
+/* --- 동적 텍스트용 3가지 애니메이션 세트 --- */
+#dynamic-text {
+    /* 기존 transition 제거, keyframes 방식으로 제어 */
+    opacity: 0; 
+}
+
+/* 1. 아래에서 위로 (Slide Up) */
+.anim-slide-up-in { animation: slideUpIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+.anim-slide-up-out { animation: slideUpOut 0.8s ease-in forwards; }
+
+@keyframes slideUpIn {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUpOut {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-30px); }
+}
+
+/* 2. 우측에서 좌측으로 (Slide Side) */
+.anim-slide-side-in { animation: slideSideIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+.anim-slide-side-out { animation: slideSideOut 0.8s ease-in forwards; }
+
+@keyframes slideSideIn {
+    0% { opacity: 0; transform: translateX(50px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideSideOut {
+    0% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(-50px); }
+}
+
+/* 3. 줌인 효과 (Zoom) */
+.anim-zoom-in { animation: zoomIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+.anim-zoom-out { animation: zoomOut 0.8s ease-in forwards; }
+
+@keyframes zoomIn {
+    0% { opacity: 0; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1); }
+}
+@keyframes zoomOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.1); }
+}
+
+.hero-content h1 span {
+    color: #3b82f6; /* 파란색 기술적 포인트 컬러 */
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 45px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    color: #f8fafc;
+}
+
+/* 솔루션 알아보기 버튼 */
+.hero-btn {
+    display: inline-block;
+    padding: 16px 45px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #2563eb; /* 쨍한 블루 */
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.hero-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+}
+
+/* 부드럽게 나타나는 애니메이션 */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* --- Sub Pages 공통 스타일 --- */
+body.sub-page {
+    overflow: auto;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* 서브페이지 기본 헤더 배경 */
+body.sub-page #header {
+    background-color: #0f172a; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* 서브페이지에서 헤더 호버 시 덮어쓰기 보정 */
+body.sub-page #header:hover {
+    background-color: rgba(226, 232, 240, 0.98); 
+}
+
+.sub-content {
+    padding: 150px 50px 50px; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sub-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #0f172a;
+}
+
+.sub-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+/* --- Board CSS --- */
+.board-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 40px;
+    margin-top: 20px;
+    min-height: 500px;
+}
+.board-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.board-table th, .board-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+    color: #475569;
+}
+.board-table th {
+    background-color: #f1f5f9;
+    font-weight: 600;
+    color: #1e293b;
+    border-top: 2px solid #1e3a8a;
+}
+.board-table td.title {
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    color: #1e293b;
+}
+.board-table td.title:hover {
+    text-decoration: underline;
+    color: #2563eb;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+.btn-primary { background: #1e3a8a; color: #fff; }
+.btn-primary:hover { background: #1e40af; }
+.btn-secondary { background: #e2e8f0; color: #475569; }
+.btn-secondary:hover { background: #cbd5e1; }
+.btn-danger { background: #ef4444; color: #fff; }
+.btn-danger:hover { background: #dc2626; }
+
+/* Read View */
+.post-view { display: none; }
+.post-title { font-size: 2rem; margin-bottom: 15px; color: #0f172a; }
+.post-meta { color: #64748b; font-size: 0.95rem; margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+.post-content { min-height: 250px; font-size: 1.1rem; line-height: 1.8; color: #334155; white-space: pre-wrap; }
+.post-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+.like-btn-container { text-align: center; margin: 40px 0; }
+.like-btn { font-size: 1.1rem; padding: 12px 30px; border-radius: 50px; }
+
+/* Write View */
+.write-view { display: none; }
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #1e293b; }
+.form-group input, .form-group textarea { width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.form-group input:focus, .form-group textarea:focus { border-color: #2563eb; }
+.form-group textarea { height: 350px; resize: vertical; }
+.write-actions { display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+
+/* --- Anchor Scrolling Styles (One-page scroll) --- */
+html {
+    scroll-behavior: smooth;
+}
+
+section.anchor-section {
+    /* 고정된 헤더 높이만큼 스크롤 시 여백을 줘서 제목이 가려지지 않게 함 */
+    scroll-margin-top: 120px; 
+    /* 스크롤 테스트를 위해 높이를 무지막지하게 늘렸습니다! (화면의 1.5배) */
+    min-height: 150vh; 
+    padding: 60px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+section.anchor-section:last-child {
+    border-bottom: none;
+}
+
+section.anchor-section h2 {
+    font-size: 2.5rem;
+    color: #111;
+    margin-bottom: 30px;
+}
+
+section.anchor-section p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* --- Subpage Hero --- */
+.subpage-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('robot1.jpg');
+    background-size: cover;
+    /* 사진의 윗부분이 상단 메뉴 탭들에 가려지지 않게 이미지 기준점을 약간 아래로 내림 */
+    background-position: center 120px; 
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px; /* 텍스트도 살짝 아래로 내려서 중앙을 맞춤 */
+}
+
+.subpage-hero .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.subpage-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+}
+
+.subpage-hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.subpage-hero p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* --- Business Cards --- */
+.business-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.business-card {
+    background: rgba(30, 41, 59, 0.7); /* 고급스러운 다크 네이비 글래스모피즘 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 50px 40px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.business-card:hover {
+    transform: translateY(-15px);
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 25px rgba(59, 130, 246, 0.2);
+}
+
+.business-card h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.business-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background: #3b82f6; /* 벨트록스 시그니처 블루 */
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.business-card:hover h2::after {
+    width: 100px;
+}
+
+.business-card p {
+    color: #cbd5e1;
+    line-height: 1.8;
+    flex-grow: 1;
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+}
+
+.business-card .learn-more {
+    display: inline-flex;
+    align-items: center;
+    color: #60a5fa;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.business-card .learn-more::after {
+    content: '→';
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.business-card:hover .learn-more {
+    color: #93c5fd;
+}
+
+.business-card:hover .learn-more::after {
+    transform: translateX(8px);
+}
+
+/* ==========================================================================
+   MOBILE & CROSS-BROWSER OPTIMIZATION
+   ========================================================================== */
+
+/* Safari(사파리) 등을 위한 크로스 브라우징 (글래스모피즘 호환) */
+.business-card {
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- Tablet (태블릿: 1024px 이하) --- */
+@media screen and (max-width: 1024px) {
+    .header-container {
+        padding: 20px 30px;
+    }
+    .gnb ul {
+        gap: 15px;
+    }
+    .gnb ul > li {
+        width: 100px;
+    }
+    .gnb ul > li > a {
+        font-size: 1rem;
+    }
+    .hero-content h1, .subpage-hero h1 {
+        font-size: 3.5rem;
+    }
+    .mega-image {
+        display: none; /* 공간 절약을 위해 태블릿 이하에선 메가메뉴 이미지 숨김 */
+    }
+    .mega-lists {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+/* --- Mobile (스마트폰: 768px 이하) --- */
+@media screen and (max-width: 768px) {
+    /* 헤더를 상하단 2줄로 배치 */
+    .header-container {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    /* 로고 크기 축소 */
+    .logo a {
+        font-size: 1.8rem;
+    }
+
+    /* GNB를 터치 스와이프로 가로 스크롤 가능하게 변경 (화면 밖으로 나가지 않음) */
+    .gnb {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Safari 부드러운 스크롤 */
+    }
+    .gnb::-webkit-scrollbar {
+        display: none; /* 스크롤바 감추기 */
+    }
+    .gnb ul {
+        width: max-content; 
+        padding-bottom: 5px;
+        margin: 0 auto;
+    }
+    
+    /* 모바일 메가메뉴 세로 스크롤화 */
+    #header:hover .mega-menu {
+        height: auto;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    .mega-menu-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+    .mega-lists {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .sub-list {
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding-bottom: 10px;
+    }
+
+    /* 폰트 및 여백 축소 */
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .subpage-hero h1 {
+        font-size: 2.5rem;
+    }
+    .subpage-hero p {
+        font-size: 1.1rem;
+    }
+    
+    /* 사업분야 카드 1열 세로 배치 */
+    .business-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .business-card {
+        padding: 30px 20px;
+    }
+    
+    /* 본문 섹션 패딩 축소 및 앵커 스크롤 보정 (헤더가 2줄이 되므로) */
+    section.anchor-section {
+        padding: 40px 20px;
+        scroll-margin-top: 160px; 
+    }
+    
+    .sub-content {
+        padding: 40px 20px !important;
+    }
+}
